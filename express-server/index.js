@@ -12,6 +12,8 @@ app.get('/', (req, res)=>{
 });
 
 app.post('/media', (req, res) => {
+    console.log("POST to /media");
+
     const query = gql`  
         {
             Page(page: 1, perPage: 10) {
@@ -29,8 +31,12 @@ app.post('/media', (req, res) => {
     }`;
 
     request('https://graphql.anilist.co', query).then((data) => {
-        res.send(data);
+        console.log('POST request successful');
+        console.log(JSON.stringify(data));
+        res.send(JSON.stringify(data));
     }).catch((err) => {
+        console.log('Error in /media request.')
+        console.log(err);
         res.send(err);
     });
 });
