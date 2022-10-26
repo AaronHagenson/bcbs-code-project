@@ -1,8 +1,15 @@
 import { Config } from '@stencil/core';
+import { reactOutputTarget as react } from '@stencil/react-output-target';
+
 
 export const config: Config = {
   namespace: 'stencil-web-components',
   outputTargets: [
+    react({
+      componentCorePackage: 'ahagenson-bcbs-stencil-web-components',
+      proxiesFile: '../ahagenson-bcbs-react-components/src/components/stencil-generated/index.ts',
+      includeDefineCustomElements: true,
+    }),
     {
       type: 'dist',
       esmLoaderPath: '../loader',

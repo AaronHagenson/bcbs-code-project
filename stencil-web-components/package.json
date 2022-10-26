@@ -1,7 +1,7 @@
 {
-  "name": "stencil-web-components",
-  "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "name": "ahagenson-bcbs-stencil-web-components",
+  "version": "0.0.3",
+  "description": "Shared web components for BCBS coding project",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -28,7 +28,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@stencil/core": "^2.13.0"
+    "@stencil/core": "^2.13.0",
+    "@stencil/react-output-target": "^0.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
