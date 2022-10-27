@@ -1,5 +1,5 @@
 .movie-card {
-    width: 50%;
+    background-color: white;
     display: flex;
     border-radius: 10px;
     box-shadow: 2px 1px 5px 1px rgb(0 0 0 / 75%);
