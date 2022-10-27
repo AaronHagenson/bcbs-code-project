@@ -6,6 +6,20 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface MovieCard {
+        /**
+          * The movie description
+         */
+        "description": string;
+        /**
+          * The url for the image
+         */
+        "image": string;
+        /**
+          * The movie title
+         */
+        "name": string;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +36,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLMovieCardElement extends Components.MovieCard, HTMLStencilElement {
+    }
+    var HTMLMovieCardElement: {
+        prototype: HTMLMovieCardElement;
+        new (): HTMLMovieCardElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +49,25 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "movie-card": HTMLMovieCardElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface MovieCard {
+        /**
+          * The movie description
+         */
+        "description"?: string;
+        /**
+          * The url for the image
+         */
+        "image"?: string;
+        /**
+          * The movie title
+         */
+        "name"?: string;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +83,7 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "movie-card": MovieCard;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +91,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "movie-card": LocalJSX.MovieCard & JSXBase.HTMLAttributes<HTMLMovieCardElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
