@@ -45,10 +45,11 @@ const MediaList = () => {
     }
 
     return (
-    <div className="media-list-container">
-        {movieList.length < 1 && <button onClick={fetchMovies}>Get Movies</button>}
-        {isLoading ? renderLoadingState() : renderMovieList()}    
-    </div>
+        <div className="media-list-container">
+        <h1>BCBS Interview Project</h1>
+            {(movieList.length < 1 && !isLoading) && <button onClick={fetchMovies}>Get Movies</button>}
+            {isLoading ? renderLoadingState() : renderMovieList()}    
+        </div>
     )
 }
 
