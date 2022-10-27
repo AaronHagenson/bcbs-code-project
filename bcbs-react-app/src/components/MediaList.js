@@ -1,6 +1,5 @@
-import { MovieCard, MyComponent } from "ahagenson-bcbs-react-components";
+import { MovieCard } from "ahagenson-bcbs-react-components";
 import { useState } from "react";
-import { mockResponseData } from "../data";
 import "./MediaList.css"
 
 const MediaList = () => {
@@ -11,18 +10,10 @@ const MediaList = () => {
     const fetchMovies = async () => {
         setIsLoading(true);
         try {     
-            await fetch("http://localhost:4000/media", { 
-                method: 'POST', 
-                mode: 'no-cors',    
-                headers: {
-                'Content-Type': 'application/json'
-                },
-            });
+            const response = await fetch("http://localhost:4000/movies", { method: 'GET' });
+            const responseJson = await response.json();
 
-            // The response is being returned without data, so I'm hardcoding
-            // the results of the graphQL query and setting them to the state
-            // after the api call is complete.
-            setMovieList(mockResponseData);
+            setMovieList(responseJson.Page.media);
             setIsLoading(false);
         } catch (err) {
             setIsLoading(false);
@@ -34,7 +25,7 @@ const MediaList = () => {
         return (
             <ul>
                 {movieList.map(movie => (
-                    <li key={movie.id}><MovieCard name={movie.title?.english ?? 'N/A'} description={movie.description} image={movie.coverImage?.large ?? ''}/></li>
+                    <li key={movie.id}><MovieCard name={movie.title?.english ?? 'N/A'} description={movie.description ?? ''} image={movie.coverImage?.large ?? ''}/></li>
                 ))}
             </ul> 
         )
@@ -47,7 +38,7 @@ const MediaList = () => {
     return (
         <div className="media-list-container">
         <h1>BCBS Interview Project</h1>
-            {(movieList.length < 1 && !isLoading) && <button onClick={fetchMovies}>Get Movies</button>}
+            {(!movieList.length && !isLoading) && <button onClick={fetchMovies}>Get Movies</button>}
             {isLoading ? renderLoadingState() : renderMovieList()}    
         </div>
     )

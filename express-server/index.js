@@ -1,8 +1,13 @@
 const express = require("express"); 
 const gql = require("graphql-request").gql;
 const request = require("graphql-request").request;
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({
+    origin: '*'
+}));
 
 const PORT = process.env.PORT || 4000;
 
@@ -11,9 +16,7 @@ app.get('/', (req, res)=>{
     res.send("BCBS server - get successful");
 });
 
-app.post('/media', (req, res) => {
-    console.log("POST to /media");
-
+app.get('/movies', (req, res) => {
     const query = gql`  
         {
             Page(page: 1, perPage: 10) {
@@ -31,12 +34,9 @@ app.post('/media', (req, res) => {
     }`;
 
     request('https://graphql.anilist.co', query).then((data) => {
-        console.log('POST request successful');
-        console.log(JSON.stringify(data));
-        res.send(JSON.stringify(data));
+        res.json(data);
     }).catch((err) => {
-        console.log('Error in /media request.')
-        console.log(err);
+        console.log('Error in /movies request.')
         res.send(err);
     });
 });
