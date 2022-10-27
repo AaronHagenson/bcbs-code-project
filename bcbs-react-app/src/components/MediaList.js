@@ -1,4 +1,4 @@
-import { MyComponent } from "ahagenson-bcbs-react-components";
+import { MovieCard, MyComponent } from "ahagenson-bcbs-react-components";
 import { useState } from "react";
 import { mockResponseData } from "../data";
 import "./MediaList.css"
@@ -6,6 +6,7 @@ import "./MediaList.css"
 const MediaList = () => {
     const [movieList, setMovieList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
 
     const fetchMovies = async () => {
         setIsLoading(true);
@@ -33,22 +34,20 @@ const MediaList = () => {
         return (
             <ul>
                 {movieList.map(movie => (
-                    <li key={movie.id}>{movie.title.english}</li>
+                    <li key={movie.id}><MovieCard name={movie.title?.english ?? 'N/A'} description={movie.description} image={movie.coverImage?.large ?? ''}/></li>
                 ))}
             </ul> 
         )
     }
 
     const renderLoadingState = () => {
-        return <h3>Loading. . .</h3>
+        return <h3 className="loading-state">Loading. . .</h3>
     }
 
     return (
     <div className="media-list-container">
-        <MyComponent />
         {movieList.length < 1 && <button onClick={fetchMovies}>Get Movies</button>}
-        {isLoading ? renderLoadingState() : renderMovieList()}
-     
+        {isLoading ? renderLoadingState() : renderMovieList()}    
     </div>
     )
 }
